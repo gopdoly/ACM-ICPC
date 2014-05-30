@@ -30,7 +30,7 @@ struct Point {
     bool operator < (const Point &a) const {
         return x < a.x || (x == a.x && y < a.y);
     }
-    bool operator == (const Point &a) {
+    bool operator == (const Point &a) const {
         return dcmp(x - a.x) == 0 && dcmp(y - a.y) == 0;
     }
 };
@@ -53,7 +53,7 @@ Point rotate(Point a, double r) {
 Point normal(Point a) {//left
     return Point(-a.y, a.x);
 }
-double distToLine(Point p, Point a, Point b) {
+double disToLine(Point p, Point a, Point b) {
     Point v1 = b - a, v2 = p - a;
     return fabs(cross(v1, v2)) / length(v1);
 }
@@ -61,7 +61,7 @@ Point pointToLine(Point p, Point a, Point b) {
     Point v = b - a;
     return a + v * (dot(v, p - a) / dot(v, v));
 }
-double distToSeg(Point p, Point a, Point b) {
+double disToSeg(Point p, Point a, Point b) {
     if(a == b) return length(p - a);
     Point v1 = b - a, v2 = p - a, v3 = p - b;
     if(dcmp(dot(v1, v2)) < 0) return length(v2);
