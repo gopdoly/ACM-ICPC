@@ -1,3 +1,9 @@
+const double eps = 1e-8;
+
+int dcmp(double d) {
+	return d < -eps ? -1 : d > eps;
+}
+
 struct Point {
     double x, y;
 
