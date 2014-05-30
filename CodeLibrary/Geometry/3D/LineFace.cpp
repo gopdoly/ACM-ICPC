@@ -1,27 +1,27 @@
-//ÏòÁ¿A,BµÄ¼Ğ½Ç
+//å‘é‡A,Bçš„å¤¹è§’
 double angle(Point a, Point b){
     return acos(dot(a, b) / length(a) / length(b));
 }
-//µãpµ½Æ½Ãæp0-n(µã·¨)µÄ¾àÀë£¬nÎªµ¥Î»ÏòÁ¿Ê±²»ÓÃ×ö³ı·¨
+//ç‚¹påˆ°å¹³é¢p0-n(ç‚¹æ³•)çš„è·ç¦»ï¼Œnä¸ºå•ä½å‘é‡æ—¶ä¸ç”¨åšé™¤æ³•
 double disToPlane(Point p, Point p0, Point n) {
     return fabs(dot(p-p0, n)) / length(n);
 }
-//µãpÔÚÆ½Ãæp0-nÉÏµÄÍ¶Ó°£¬nÎªµ¥Î»ÏòÁ¿Ê±²»ÓÃ×ö³ı·¨
+//ç‚¹påœ¨å¹³é¢p0-nä¸Šçš„æŠ•å½±ï¼Œnä¸ºå•ä½å‘é‡æ—¶ä¸ç”¨åšé™¤æ³•
 Point getPlaneProjection(Point p, Point p0, Point n) {
     double d = dot(p-p0, n) / length(n);
     return p + n * d;
 }
-//Ö±Ïßp1-p2µ½Æ½Ãæp0-nµÄ½»µã¡£¼Ù¶¨½»µãÎ¨Ò»´æÔÚ
+//ç›´çº¿p1-p2åˆ°å¹³é¢p0-nçš„äº¤ç‚¹ã€‚å‡å®šäº¤ç‚¹å”¯ä¸€å­˜åœ¨
 Point linePlaneIntersection(Point p1, Point p2, Point p0, Point n) {
     Point v = p2 - p1;
-    double t = dot(n, p0 - p1) / dot(n, p2 - p1); //ÅĞ¶Ï·ÖÄ¸ÊÇ·ñÎª0£¬Îª0Ê±Æ½ĞĞ
-    return p1 + v * t; //Èç¹ûÊÇÏß¶Î£¬ÅĞ¶ÏtÊÇ²»ÊÇÔÚ0ºÍ1Ö®¼ä
+    double t = dot(n, p0 - p1) / dot(n, p2 - p1); //åˆ¤æ–­åˆ†æ¯æ˜¯å¦ä¸º0ï¼Œä¸º0æ—¶å¹³è¡Œ
+    return p1 + v * t; //å¦‚æœæ˜¯çº¿æ®µï¼Œåˆ¤æ–­tæ˜¯ä¸æ˜¯åœ¨0å’Œ1ä¹‹é—´
 }
-//Èı½ÇĞÎABCÃæ»ıµÄ2±¶
+//ä¸‰è§’å½¢ABCé¢ç§¯çš„2å€
 double area2(Point a, Point b, Point c) {
     return length(cross(b - a, c - a));
 }
-//µãPÔÚÈı½ÇĞÎABCÖĞ
+//ç‚¹Påœ¨ä¸‰è§’å½¢ABCä¸­
 bool pointInTri(Point p, Point a, Point b, Point c) {
     double s = area2(a, b, c);
     double s1 = area2(p, a, b);
@@ -29,7 +29,7 @@ bool pointInTri(Point p, Point a, Point b, Point c) {
     double s3 = area2(p, b, c);
     return dcmp(s1 + s2 + s3 - s) == 0;
 }
-//Èı½ÇĞÎP0P1P2ÊÇ·ñÓëÏß¶ÎABÏà½»
+//ä¸‰è§’å½¢P0P1P2æ˜¯å¦ä¸çº¿æ®µABç›¸äº¤
 bool triSegIntersection(Point p0, Point p1, Point p2, Point a, Point b, Point& p) {
     Point n = cross(p1 - p0, p2 - p0);
     if (dcmp(dot(n, b - a)) == 0) return false;
@@ -38,12 +38,12 @@ bool triSegIntersection(Point p0, Point p1, Point p2, Point a, Point b, Point& p
     p = a + (b - a) * t;
     return pointInTri(p, p0, p1, p2);
 }
-//µãPµ½Ö±ÏßABµÄ¾àÀë
+//ç‚¹Påˆ°ç›´çº¿ABçš„è·ç¦»
 double disToLine(Point p, Point a, Point b) {
     Point v1 = b - a, v2 = p - a;
     return length(cross(v1, v2)) / length(v1);
 }
-//µãPµ½Ïß¶ÎABµÄ¾àÀë
+//ç‚¹Påˆ°çº¿æ®µABçš„è·ç¦»
 double disToSeg(Point p, Point a, Point b) {
     if (a == b) return length(p - a);
     Point v1 = b - a, v2 = p - a, v3 = p - b;
@@ -51,11 +51,11 @@ double disToSeg(Point p, Point a, Point b) {
     else if (dcmp(dot(v1, v3)) > 0) return length(v3);
     else return length(cross(v1, v2)) / length(v1);
 }
-//·µ»ØAB, AC, AD³ÊÓÒÊÖÏµµÄ»ìºÏ»ı¡£Ò²µÈÓÚËÄÃæÌåABCDµÄÓĞÏòÌå»ıµÄ6±¶
+//è¿”å›AB, AC, ADå‘ˆå³æ‰‹ç³»çš„æ··åˆç§¯ã€‚ä¹Ÿç­‰äºå››é¢ä½“ABCDçš„æœ‰å‘ä½“ç§¯çš„6å€
 double volume6(Point a, Point b, Point c, Point d) {
     return dot(d-a, cross(b-a, c-a));
 }
-//ÇóÒìÃæÖ±Ïßp1+suºÍp2+tvµÄ¹«´¹Ïß¶ÔÓ¦µÄs¡£Èç¹ûÆ½ĞĞ/ÖØºÏ£¬·µ»Øfalse
+//æ±‚å¼‚é¢ç›´çº¿p1+suå’Œp2+tvçš„å…¬å‚çº¿å¯¹åº”çš„sã€‚å¦‚æœå¹³è¡Œ/é‡åˆï¼Œè¿”å›false
 bool lineDistance(Point p1, Point u, Point p2, Point v, double& s) {
     double b = dot(u, u) * dot(v, v) - dot(u, v) * dot(u, v);
     if (dcmp(b) == 0) return false;
@@ -63,13 +63,13 @@ bool lineDistance(Point p1, Point u, Point p2, Point v, double& s) {
     s = a / b;
     return true;
 }
-//Á½ÌõÖ±ÏßµÄ¾àÀë
+//ä¸¤æ¡ç›´çº¿çš„è·ç¦»
 double lineDisToLine(Point p1, Point v1, Point p2, Point v2) {
     Point u = cross(v1, v2), a = p1 - p2;
     if (dcmp(length(u)) == 0) return length(cross(a, v2)) / length(v2);
     return fabs(dot(a, u)) / length(u);
 }
-//µãAÈÆOPÖáÄæÊ±Õë(OÏòP¿´)Ğı×ªang¶È
+//ç‚¹Aç»•OPè½´é€†æ—¶é’ˆ(Oå‘Pçœ‹)æ—‹è½¬angåº¦
 Point rotate(Point a, Point p, double ang) {
     p = p / length(p);
     Point v = cross(a, p);
@@ -77,7 +77,7 @@ Point rotate(Point a, Point p, double ang) {
     double sn = sin(ang), cs = cos(ang);
     return a * cs - v * sn + p * d * (1 - cs);
 }
-//Æ½ÃæO-n1ÉÏµÄµãa£¬Ğı×ªµ½Æ½ÃæO-n2ÉÏ(OÎªÔ­µã(0,0,0))
+//å¹³é¢O-n1ä¸Šçš„ç‚¹aï¼Œæ—‹è½¬åˆ°å¹³é¢O-n2ä¸Š(Oä¸ºåŸç‚¹(0,0,0))
 Point rotate2(Point a, Point n1, Point n2) {
     Point u = cross(n1, n2);
     if (dcmp(length(u)) == 0) return a;
