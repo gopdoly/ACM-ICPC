@@ -96,7 +96,7 @@ struct Circle {
     int crossCircle(const Circle &C, Point &p1, Point &p2) {
         double d = (c - C.c).length();
         if (dcmp(d) == 0) {
-            if (dcmp(r - C.r) == 0) return -1; //Á½Ô²ÖØºÏ
+            if (dcmp(r - C.r) == 0) return -1; //ä¸¤åœ†é‡åˆ
             return 0;
         }
         if (dcmp(r + C.r - d) < 0) return 0;
@@ -118,7 +118,7 @@ struct Circle {
         if (dcmp(d - r) == 0) return 1;
         else return 2;
     }
-    //ÇĞÏß·½ÏòÏòÁ¿
+    //åˆ‡çº¿æ–¹å‘å‘é‡
     int tangent(Point p, Point &v1, Point &v2) {
         Point u = c - p;
         double d = u.length();
@@ -131,7 +131,7 @@ struct Circle {
         v1 = u.rotate(-ang);
         v2 = u.rotate(ang);
         return 2;
-        //p1 = p + v1 / v1.length() * sqrt(d*d - r*r); ÇĞµã
+        //p1 = p + v1 / v1.length() * sqrt(d*d - r*r); åˆ‡ç‚¹
     }
     double areaCircle(Circle C) {
         double d = (C.c - c).length();
@@ -143,21 +143,21 @@ struct Circle {
         double h = sqrt(r*r - d1*d1);
         return acos(d1/r)*r*r - h*d1 + acos(d2/C.r)*C.r*C.r - h*d2;
     }
-    //aµ½bµÄÓĞÏò»¡£¬a,b²»Ò»¶¨ÔÚÔ²ÉÏ
+    //aåˆ°bçš„æœ‰å‘å¼§ï¼Œa,bä¸ä¸€å®šåœ¨åœ†ä¸Š
     double arc(Point a, Point b) {
         double cp=(a-c).cross(b-c);
         double res=atan2(fabs(cp), (a-c).dot(b-c));
         return cp > -eps ? res : -res;
     }
-    //aµ½bµÄÓĞÏòÉÈĞÎÃæ»ı
+    //aåˆ°bçš„æœ‰å‘æ‰‡å½¢é¢ç§¯
     double areaSector(Point a, Point b) {
         return arc(a, b) * r * r * 0.5;
     }
-    //aµ½bµÄÓĞÏò¹­ĞÎÃæ»ı
+    //aåˆ°bçš„æœ‰å‘å¼“å½¢é¢ç§¯
     double areaBow(Point a, Point b) {
         return areaSector(a, b) - (a-c).cross(b-c) * 0.5;
     }
-    //Èı½ÇĞÎÁíÒ»¸öµãÊÇÔ²ĞÄ£¬ÇÒÔ²ĞÄÊÇÔ­µã
+    //ä¸‰è§’å½¢å¦ä¸€ä¸ªç‚¹æ˜¯åœ†å¿ƒï¼Œä¸”åœ†å¿ƒæ˜¯åŸç‚¹
     double areaTriangle(Point a, Point b) {
         if(a.length() <= r && b.length() <= r) return a.cross(b) * 0.5;
         Line ab(a, b);
@@ -171,7 +171,7 @@ struct Circle {
         return areaSector(a, p1) + p1.cross(p2) * 0.5 + areaSector(p2, b);
     }
 };
-//Íâ½ÓÔ²
+//å¤–æ¥åœ†
 Circle cirsumCircle(Point A, Point B, Point C) {
     double bx = B.x - A.x, by = B.y - A.y;
     double cx = C.x - A.x, cy = C.y - A.y;
@@ -181,7 +181,7 @@ Circle cirsumCircle(Point A, Point B, Point C) {
     Point p = Point(x, y);
     return Circle(p, (A - p).length());
 }
-//ÄÚÇĞÔ²
+//å†…åˆ‡åœ†
 Circle inscribedCircle(Point A, Point B, Point C) {
     double a = (B - C).length();
     double b = (C - A).length();
