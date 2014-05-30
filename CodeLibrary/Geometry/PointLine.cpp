@@ -23,8 +23,11 @@ struct Point {
     Point operator / (double k) const {
         return Point(x / k, y / k);
     }
+    void read() {
+        scanf("%lf%lf", &x, &y);
+    }
 
-    bool operator < (const Point &a) {
+    bool operator < (const Point &a) const {
         return x < a.x || (x == a.x && y < a.y);
     }
     bool operator == (const Point &a) {
@@ -99,7 +102,4 @@ int lineCrossSeg(Point a1, Point b1, Point a2, Point b2) {
 }
 bool onSegment(Point p, Point a, Point b) {
     return dcmp(cross(a - p, b - p)) == 0 && dcmp(dot(a - p, b - p) <= 0);
-}
-double area2(Point a, Point b, Point c) {
-    return cross(b - a, c - a);
 }
